@@ -1,13 +1,28 @@
 .wrapper{
     width: 100%;
-	float: left;
 	padding: 0;
 	background-color: dodgerblue;
 	border-bottom: 1px solid #ccc;
     height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .iconWrapper{
     all: unset;
     padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.headerElement {
+    color: white;
+    font-family: 'Arimo';
+    font-size: 30px;
+    padding: 20px;
+}
+.headerElement:hover{
+    font-size: 40px;    
+    }
