@@ -20,9 +20,9 @@ const ProfileSVG = () => {
     </clipPath>
   </defs>
   
-  <circle cx="30" cy="30" r="28" fill="black" clip-path="url(#avoid-antialiasing-bugs)" />
+  <circle cx="30" cy="30" r="28" fill="black" clipPath="url(#avoid-antialiasing-bugs)" />
   <circle cx="30" cy="23" r="11" />
-  <circle cx="30" cy="55" r="20" clip-path="url(#circular-border)" />
+  <circle cx="30" cy="55" r="20" clipPath="url(#circular-border)" />
 </svg>);
 }
 export default ProfileSVG;
