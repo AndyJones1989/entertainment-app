@@ -1,0 +1,36 @@
+.wrapper{
+    display: grid;
+    position: relative;
+    width: 80%;
+    margin: 30px auto;
+}
+
+.gridImage1{
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+}
+
+.gridImage2{
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+}
+
+.titleBanner{
+    grid-row-start: 1;
+    grid-row-end: span 2;
+    grid-column-start: 2;
+    font-family: 'Arimo';
+    font-size: 60px;
+    align-self: center;
+    text-align: center;
+    color:rgb(0, 0, 124);
+    font-weight: bolder;
+    
+}
+@media screen and (max-width: 1200px) {
+    .titleBanner {
+      font-size: 48px;
+    }
+}

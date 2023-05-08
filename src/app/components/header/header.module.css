@@ -22,7 +22,16 @@
     font-family: 'Arimo';
     font-size: 30px;
     padding: 20px;
+    
 }
 .headerElement:hover{
-    font-size: 40px;    
+    font-weight: bolder;
+    color:#ccc;
+    cursor: pointer;
     }
+
+@media screen and (max-width: 950px) {
+  .headerElement {
+    font-size: 18px;
+  }
+}
