@@ -1,0 +1,49 @@
+.errorBox{
+    color: red;
+    border: 2px solid red;
+    border-radius: 10px;
+    font-family: 'Arimo';
+    padding: 4px;
+}
+
+.formWrapper{
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    margin: 20px auto;
+}
+
+.formField{
+    margin: 10px;
+    height: 40px;
+    font-family: 'Arimo';
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.formButton{
+    all: unset;
+    max-width: 50%;
+    margin: 10px auto;
+    background-color: dodgerblue;
+    color: white;
+    font-family: 'Arimo';
+    border: 1px solid black;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.formButton:hover{
+    color: lightgrey;
+}
+
+.formButton:active{
+    transform: translate(1px, 10px);
+}
+
+.inputInvalid{
+ background-color: rgb(255, 153, 153);   
+}
