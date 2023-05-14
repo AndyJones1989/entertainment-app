@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import classes from './page.module.css';
 import Header from "../components/header/header";
+import TitleBanner from "../components/title-banner/title-banner";
 
 
 export default function Login() {
@@ -53,6 +54,12 @@ const checkIsValid = (userObject: IUserObject) => {
     return prevState;
   });
 }
+if(!passwordInput){
+  setInputIsValid((prevState)=>{
+    prevState.password = false;
+    return prevState;
+  });
+}
   console.log('inval');
   setShowErrorDialogue(true);
   return false;
@@ -82,6 +89,7 @@ const addInvalidPasswordClass = inputIsValid.password ? '' : classes.inputInvali
     return (
       <>
       <Header isLoggedIn={false}/>
+      <TitleBanner text='Log-In or Sign Up'/>
     <form onSubmit={handleSubmit} className={classes.formWrapper}>
     {showErrorDialogue &&
     <div className={classes.errorBox}>There was an error in the details you submitted</div>

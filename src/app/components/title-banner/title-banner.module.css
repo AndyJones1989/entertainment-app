@@ -1,0 +1,12 @@
+.container{
+    max-width: 80%;
+    margin: 20px auto;
+}
+
+.text{
+    font-size: 60px;
+    text-align: center;
+    color:rgb(0, 0, 124);
+    font-weight: bolder;
+    font-family: 'Arimo';
+}
