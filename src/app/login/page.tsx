@@ -1,13 +1,16 @@
 'use client'
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from './page.module.css';
 import Header from "../components/header/header";
 import TitleBanner from "../components/title-banner/title-banner";
+import { AuthContext } from "../context/auth-provider";
 
 
 export default function Login() {
-  console.log(process.env.NEXT_PUBLIC_API_URL + 'login/');
+  const {authDetails} = useContext(AuthContext);
+  const {setAuthenticated} = authDetails;
+  console.log(AuthContext);
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -29,11 +32,20 @@ const handleSubmit = async (event:any) => {
   try{
   const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'login', { user } );
   console.log(response);
+  setAuthenticated({
+    isAuthenticated: true,
+    userName: 'andy',
+    token: response.data,
+    setAuthenticated: setAuthenticated
+
+  })
+ window.location.href = window.location.href.replace('login', 'landing');
   }
   catch{
     setShowErrorDialogue(true);
   }
 }
+console.log(authDetails);
 };
 
 const checkIsValid = (userObject: IUserObject) => {
