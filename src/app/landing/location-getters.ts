@@ -12,20 +12,3 @@ export const getByIP = async ()=>{
       return null;
   }
     };
-  
-   export const getByGPS = async () => {
-
-    navigator.geolocation.getCurrentPosition(onGPSSuccess, onGPSFail);
-    }
-
-    const onGPSSuccess = (position: any) => {
-        const userLocation = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude
-        }
-        return userLocation;
-    }
-
-    const onGPSFail = () => {
-        console.log('GPSFail');
-    }

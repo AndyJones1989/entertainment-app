@@ -7,8 +7,6 @@ const app = express();
 
 app.use((req, res, next)=>{
     console.log('some fool be talkin');
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, Access-Control-Allow-Headers, Access-Control-Allow-Origin, X-Requested-With, Content-Type, Accept, append,delete,entries,foreach,get,has,keys,set,values,Authorization");
     res.header('Access-Control-Allow-Methods', "POST, GET, OPTIONS, DELETE, PUT");
     next();
 })

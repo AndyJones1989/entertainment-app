@@ -1,39 +1,53 @@
 'use client'
 import { AuthContext } from "@/app/context/auth-provider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { getByIP } from "./location-getters";
 import {calcDistance} from './results-sorter';
 import Header from "../components/header/header";
+import React from "react";
+
+type Location = {
+    lat: number;
+    lon: number;
+}
 
 const LandingPage = ()=> {
     const authStatus = useContext(AuthContext);
     window.localStorage.setItem('token', authStatus.authDetails.token);
     console.log(authStatus);
+    const [userLocation, setUserLocation] = useState({lat: 0, lon: 0});
 
-const distBetweenPoints = async (userLocation) =>{
-console.log(userLocation);
+const handleGPS = (geoLocation: any ) => {
+console.log('gps route');
+console.log(geoLocation);
+// will eventually set the user's actual GPS location
+}    
 
-
-// let a= calcDistance(userLocation.lat, userLocation.lon, 51.507, -0.1276 );
- //console.log(a);
+const handleNoGPS= async ()=>{
+    console.log('reverting to IP');
+const ipLocation = await getByIP();
+// currently has city-level accuracy. Sometimes thinks I'm in Huddersfield...
+//@ts-expect-error
+setUserLocation(ipLocation);
+console.log(ipLocation);
 }
 
-const getLocation = () => new Promise(
-    (resolve, reject) => {
-      window.navigator.geolocation.getCurrentPosition(
-        position => {
-          const userLocation = {
-            lat:position.coords.latitude,
-            long:position.coords.longitude
-          };
-          resolve(position) // Resolve with location. location can now be accessed in the .then method.
-        },
-        err => reject(err) // Reject with err. err can now be accessed in the .catch method.
-      )
+React.useMemo(()=>{
+    const options = {
+        timeout: 500
     }
-  )
+navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
+}, [])
 
-  getLocation();
+  let distToLeeds = calcDistance(userLocation.lat, userLocation.lon, 51.507, -0.1276 );
+
+  return(
+    <>
+    <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
+    <div>this is the landing page, where the nearest available activities will be shown</div>
+    <div>You are {distToLeeds} km from Leeds</div>
+    </>
+  )
 }
 
 export default LandingPage;
