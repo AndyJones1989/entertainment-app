@@ -17,6 +17,6 @@
             dist = dist * 180/Math.PI;
             dist = dist * 60 * 1.1515;
 
-            return dist;
+            return dist /10;
         }
     }

@@ -20,7 +20,7 @@ const LandingPage = ()=> {
 const handleGPS = (geoLocation: any ) => {
 console.log('gps route');
 console.log(geoLocation);
-// will eventually set the user's actual GPS location
+setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
 }    
 
 const handleNoGPS= async ()=>{
@@ -46,6 +46,8 @@ navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
     <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
     <div>this is the landing page, where the nearest available activities will be shown</div>
     <div>You are {distToLeeds} km from Leeds</div>
+    <div>{userLocation.lat}</div>
+    <div>{userLocation.lon}</div>
     </>
   )
 }
