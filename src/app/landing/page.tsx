@@ -38,7 +38,10 @@ React.useMemo(()=>{
     const options = {
         timeout: 500
     }
+    if(globalThis.window){
 navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
+    }
+    else {handleNoGPS()}
 }, [])
 
   let distToLeeds = calcDistance(userLocation.lat, userLocation.lon, 51.507, -0.1276 );
