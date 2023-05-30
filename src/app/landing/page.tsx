@@ -13,7 +13,9 @@ type Location = {
 
 const LandingPage = ()=> {
     const authStatus = useContext(AuthContext);
+    if(globalThis.window){
     window.localStorage.setItem('token', authStatus.authDetails.token);
+    }
     console.log(authStatus);
     const [userLocation, setUserLocation] = useState({lat: 0, lon: 0});
 
