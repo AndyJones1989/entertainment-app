@@ -5,11 +5,13 @@ import classes from './page.module.css';
 import Header from "../components/header/header";
 import TitleBanner from "../components/title-banner/title-banner";
 import { AuthContext } from "../context/auth-provider";
+import { useRouter } from "next/navigation";
 
 
 export default function Login() {
   const {authDetails} = useContext(AuthContext);
   const {setAuthenticated} = authDetails;
+  const router = useRouter();
   console.log(AuthContext);
 
   const [emailInput, setEmailInput] = useState('');
@@ -37,15 +39,13 @@ const handleSubmit = async (event:any) => {
     userName: 'andy',
     token: response.data,
     setAuthenticated: setAuthenticated
-
   })
- window.location.href = window.location.href.replace('login', 'landing');
+ router.push('/landing');
   }
   catch{
     setShowErrorDialogue(true);
   }
 }
-console.log(authDetails);
 };
 
 const checkIsValid = (userObject: IUserObject) => {
@@ -107,9 +107,9 @@ const addInvalidPasswordClass = inputIsValid.password ? '' : classes.inputInvali
     <div className={classes.errorBox}>There was an error in the details you submitted</div>
     }
     <label htmlFor='email' className={classes.inputLabel}>Email</label>
-    <input type='email' onChange={handleEmailChange} className={`${classes.formField} ${addInvalidEmailClass}`}></input>
+    <input type='email' id='email' onChange={handleEmailChange} className={`${classes.formField} ${addInvalidEmailClass}`}></input>
     <label htmlFor='password' className={classes.inputLabel}>Password</label>
-    <input type='password' onChange={handlePasswordChange} className={`${classes.formField} ${addInvalidPasswordClass}`}></input>
+    <input type='password' id='password' onChange={handlePasswordChange} className={`${classes.formField} ${addInvalidPasswordClass}`}></input>
     <button className={classes.formButton} >Submit</button>
     </form>
     </>

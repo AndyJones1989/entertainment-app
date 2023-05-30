@@ -1,5 +1,5 @@
 'use client'
-import React, { Dispatch, SetStateAction, useMemo, useState } from "react";
+import React, {  useMemo, useState } from "react";
 
 export const AuthContext = React.createContext({
     authDetails: {

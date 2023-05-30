@@ -2,9 +2,11 @@
 import classes from './header.module.css';
 import MenuSVG from '../../../../assets/menu';
 import ProfileSVG from '../../../../assets/profile';
+import ProfileAuthSVG from '../../../../assets/profile-logged-in';
 import { useMediaQuery } from '../../../../utils/use-media-query';
 import { sizes } from '../../../../utils/use-media-query';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '@/app/context/auth-provider';
 
 export interface IHeaderProps {
     isLoggedIn: boolean
@@ -12,7 +14,10 @@ export interface IHeaderProps {
 
 
 const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
-   let isMobile =  useMediaQuery(sizes.sm);
+   const isMobile =  useMediaQuery(sizes.sm);
+   const {authDetails} = useContext(AuthContext);
+   
+   console.log(authDetails);
 
     return(
         <nav className={classes.wrapper}>
@@ -29,8 +34,8 @@ const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
             </>
             }
             <button className={classes.iconWrapper}>
-            <p className={classes.headerElement}>Profile</p>
-            <ProfileSVG/>
+            <p className={classes.headerElement}>{authDetails.isAuthenticated ? authDetails.userName : 'Profile'}</p>
+            {authDetails.isAuthenticated ? <ProfileAuthSVG/> : <ProfileSVG/>}
             </button>
         </nav>
     )
