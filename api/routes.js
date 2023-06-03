@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require ('express');
 const bodyParser = require('body-parser');
 const loginRoute = require('./login/login');
+const activitiesRoute = require('./activities/activities')
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.options('/', (req, res, next)=>{
 })
 app.use(bodyParser.json());
 
-app.post('/login', loginRoute)
+app.post('/login', loginRoute);
+
+app.post('/activities', activitiesRoute);
 
 app.listen(process.env.PORT || 3001, ()=> {console.log("App is available on http://localhost:3001")});

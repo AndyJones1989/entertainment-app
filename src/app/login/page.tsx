@@ -33,7 +33,6 @@ const handleSubmit = async (event:any) => {
 
   try{
   const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'login', { user } );
-  console.log(response);
   setAuthenticated({
     isAuthenticated: true,
     userName: 'andy',
@@ -72,7 +71,7 @@ if(!passwordInput){
     return prevState;
   });
 }
-  console.log('inval');
+
   setShowErrorDialogue(true);
   return false;
 }

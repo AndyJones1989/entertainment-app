@@ -7,6 +7,7 @@ import { useMediaQuery } from '../../../../utils/use-media-query';
 import { sizes } from '../../../../utils/use-media-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '@/app/context/auth-provider';
+import Link from 'next/link';
 
 export interface IHeaderProps {
     isLoggedIn: boolean
@@ -29,7 +30,7 @@ const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
             
             {!isMobile &&
             <>
-            <p className={classes.headerElement}>Show Activities Near Me</p>
+            <Link href='/landing' className={classes.headerElement}>Show Activities Near Me</Link>
             <p className={classes.headerElement}>Post an Activity</p>
             </>
             }

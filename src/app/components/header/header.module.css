@@ -18,16 +18,20 @@
 }
 
 .headerElement {
+    all: unset;
     color: white;
     font-family: 'Arimo';
     font-size: 30px;
     padding: 20px;
+    width: 100%;
+    text-align: center;
     
 }
 .headerElement:hover{
     font-weight: bolder;
     color:#ccc;
     cursor: pointer;
+    background-color: rgb(26, 116, 206);
     }
 
 @media screen and (max-width: 950px) {
