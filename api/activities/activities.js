@@ -15,7 +15,7 @@ router.post('/activities', async (req, res, next) => {
         longitude: body.lon
     }
 
-    mongoose.connect("mongodb+srv://andyjones2:roadkill1@cluster0.wvill0h.mongodb.net/kidsActivities")
+    mongoose.connect(process.env.MONGO_STRING)
     .then(() => {console.log("connection established to MongoDB cluster")})
     .catch((err) => {console.log(err.stack)});
 

@@ -51,9 +51,12 @@ React.useMemo(()=>{
 
 const fetchActivities = async()=>{
     if(activities.length === 0){
+        try{
         const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'activities', userLocation )
         console.log(response.data);
         setActivities(response.data);
+        }
+        catch{console.log('fetch error')}
     }
 }
 
