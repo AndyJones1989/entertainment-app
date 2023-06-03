@@ -1,58 +1,77 @@
 'use client'
 import { AuthContext } from "@/app/context/auth-provider";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { getByIP } from "./location-getters";
-import {calcDistance} from './results-sorter';
 import Header from "../components/header/header";
 import React from "react";
+import axios from "axios";
 
 type Location = {
     lat: number;
     lon: number;
 }
 
+type Activity = {
+    _id: string;
+    name: string;
+    contact: string;
+    latitude: number;
+    longitude: number;
+}
+
 const LandingPage = ()=> {
     const authStatus = useContext(AuthContext);
-    if(globalThis.window){
-    window.localStorage.setItem('token', authStatus.authDetails.token);
-    }
-    console.log(authStatus);
     const [userLocation, setUserLocation] = useState({lat: 0, lon: 0});
+    const [activities, setActivities] = useState<Activity[]>([]);
 
-const handleGPS = (geoLocation: any ) => {
-console.log('gps route');
-console.log(geoLocation);
-setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
-}    
+const handleGPS = useCallback((geoLocation: any ) => {
+    setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
+    window.localStorage.setItem('lat', userLocation.lat.toString());
+    window.localStorage.setItem('lon', userLocation.lon.toString());
+    }, [userLocation])    
 
 const handleNoGPS= async ()=>{
     console.log('reverting to IP');
-const ipLocation = await getByIP();
+    const ipLocation = await getByIP();
 // currently has city-level accuracy. Sometimes thinks I'm in Huddersfield...
 //@ts-expect-error
-setUserLocation(ipLocation);
-console.log(ipLocation);
-}
+    setUserLocation(ipLocation);
+    }
 
 React.useMemo(()=>{
     const options = {
         timeout: 500
     }
     if(globalThis.window){
-navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
+    navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
     }
     else {handleNoGPS()}
+
 }, [])
 
-  let distToLeeds = calcDistance(userLocation.lat, userLocation.lon, 51.507, -0.1276 );
+const fetchActivities = async()=>{
+    if(activities.length === 0){
+        const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'activities', userLocation )
+        console.log(response.data);
+        setActivities(response.data);
+    }
+}
+
+
+fetchActivities();
+
+const activityRender = (activities.length !== 0) ? (activities.map((activity)=>{
+    return (
+        <div key={activity.name}>{activity.name}</div>
+    )
+})) : (<div>Loading Activities</div>)
 
   return(
     <>
     <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
-    <div>this is the landing page, where the nearest available activities will be shown</div>
-    <div>You are {distToLeeds} km from Leeds</div>
     <div>{userLocation.lat}</div>
     <div>{userLocation.lon}</div>
+    {activityRender}
     </>
   )
 }

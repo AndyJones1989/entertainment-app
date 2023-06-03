@@ -35,10 +35,15 @@ const handleSubmit = async (event:any) => {
   const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'login', { user } );
   setAuthenticated({
     isAuthenticated: true,
-    userName: 'andy',
+    userName: emailInput,
     token: response.data,
     setAuthenticated: setAuthenticated
   })
+
+  if(globalThis.window){
+    window.localStorage.setItem('token', response.data);
+    }
+  
  router.push('/landing');
   }
   catch{
