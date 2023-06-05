@@ -11,7 +11,6 @@ export interface IActivityCardProps {
 }
 
 const ActivityCard = ({title, imageRef, distance, description, contact, priority} :(IActivityCardProps)):JSX.Element => {
-console.log(title);
     return(
         <div className={classes.container}>
             <p className={classes.title}>{title}</p>
@@ -23,7 +22,7 @@ console.log(title);
             <div className={classes.detailsWrapper}>
                 <p className={classes.descriptionItem}>{description}</p>
                 <p className={classes.descriptionItem}>{'Contact: ' + contact}</p>
-                <p className={classes.descriptionItem}>{distance + ' KM'}</p>
+                <p className={classes.descriptionItem}>{distance.toFixed(2) + ' KM'}</p>
             </div>
         </div>
     )
