@@ -1,5 +1,7 @@
 'use client'
 import { AuthContext } from "@/app/context/auth-provider";
+import ActivityCard from "../components/activity-card/activity-card";
+import tempImage from '../../../assets/welcome-image.webp'
 import { useCallback, useContext, useState } from "react";
 import { getByIP } from "./location-getters";
 import Header from "../components/header/header";
@@ -17,12 +19,17 @@ type Activity = {
     contact: string;
     latitude: number;
     longitude: number;
+    description: string;
+    distance: number;
 }
 
 const LandingPage = ()=> {
     const authStatus = useContext(AuthContext);
-    const [userLocation, setUserLocation] = useState({lat: 0, lon: 0});
+    const [userLocation, setUserLocation] = useState<Location>({lat: 0, lon: 0});
     const [activities, setActivities] = useState<Activity[]>([]);
+    const options = {
+        timeout: 500
+    }
 
 const handleGPS = useCallback((geoLocation: any ) => {
     setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
@@ -32,28 +39,24 @@ const handleGPS = useCallback((geoLocation: any ) => {
 
 const handleNoGPS= async ()=>{
     console.log('reverting to IP');
-    const ipLocation = await getByIP();
+    const ipLocation: Location | null = await getByIP();
+    console.log(ipLocation);
 // currently has city-level accuracy. Sometimes thinks I'm in Huddersfield...
 //@ts-expect-error
     setUserLocation(ipLocation);
     }
 
-React.useMemo(()=>{
-    const options = {
-        timeout: 500
-    }
-    if(globalThis.window){
+    if(globalThis.window && userLocation.lat === 0){
     navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
     }
-    else {handleNoGPS()}
+    else if (userLocation.lat === 0){handleNoGPS()}
 
-}, [])
+
 
 const fetchActivities = async()=>{
     if(activities.length === 0){
         try{
         const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'activities', userLocation )
-        console.log(response.data);
         setActivities(response.data);
         }
         catch{console.log('fetch error')}
@@ -65,18 +68,29 @@ fetchActivities();
 
 const activityRender = (activities.length !== 0) ? (activities.map((activity)=>{
     return (
-        <div key={activity.name}>{activity.name}</div>
+        <ActivityCard
+        key={activity.name} 
+        title={activity.name} 
+        imageRef={tempImage} 
+        description={activity.description} 
+        contact={activity.contact}
+        distance={activity.distance}
+        priority={false}
+        />
     )
 })) : (<div>Loading Activities</div>)
 
   return(
     <>
     <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
-    <div>{userLocation.lat}</div>
-    <div>{userLocation.lon}</div>
+    <div style={{display: 'flex', width: '80%'}}>
+        <div>{userLocation.lat}</div>
+        <div>{userLocation.lon}</div>
     {activityRender}
+    </div>
+
     </>
   )
 }
 
-export default LandingPage;
+export default React.memo(LandingPage);

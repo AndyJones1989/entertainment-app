@@ -5,7 +5,8 @@ const activitySchema = new mongoose.Schema({
     name: String,
     latitude: String,
     longitude: String,
-    contact: String
+    contact: String,
+    description: String
 })
 
 module.exports = mongoose.model('Activity', activitySchema);

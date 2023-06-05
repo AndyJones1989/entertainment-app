@@ -7,9 +7,7 @@ const Activity = require('./Activity');
 const haversine = require('haversine');
 
 router.post('/activities', async (req, res, next) => {
-    console.log(req.body);
     const { body } = req;
-
     const userLocation = {
         latitude: body.lat,
         longitude: body.lon
@@ -34,12 +32,15 @@ router.post('/activities', async (req, res, next) => {
 
     const activities = await Activity.find()
     const mappedActivities = activities.map((activity)=>{
+        //scott - why TF did the spread operator cause me issues here?
         return {
             _id: activity.id,
             name: activity.name,
             contact: activity.contact,
+            description: activity.description,
             latitude: Number(activity.latitude),
             longitude: Number(activity.longitude),
+            distance: haversine(userLocation, activity)
         }
     })
 

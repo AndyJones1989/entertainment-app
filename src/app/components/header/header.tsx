@@ -17,8 +17,6 @@ export interface IHeaderProps {
 const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
    const isMobile =  useMediaQuery(sizes.sm);
    const {authDetails} = useContext(AuthContext);
-   
-   console.log(authDetails);
 
     return(
         <nav className={classes.wrapper}>
