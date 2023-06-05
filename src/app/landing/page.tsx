@@ -83,9 +83,7 @@ const activityRender = (activities.length !== 0) ? (activities.map((activity)=>{
   return(
     <>
     <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
-    <div style={{display: 'flex', width: '80%'}}>
-        <div>{userLocation.lat}</div>
-        <div>{userLocation.lon}</div>
+    <div style={{display: 'flex', width: '80%', margin: ' 0 auto', gap: '24px', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
     {activityRender}
     </div>
 
