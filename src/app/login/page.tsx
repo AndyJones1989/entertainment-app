@@ -47,7 +47,7 @@ const handleSubmit = async (event:any) => {
     console.log(window.localStorage.getItem('user'))
     }
  
-//Promise.allSettled([response]).then(()=>{ router.push('/landing');})
+Promise.allSettled([response]).then(()=>{ router.push('/landing');})
 
   }
   catch{

@@ -31,7 +31,7 @@ const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
             {!isMobile &&
             <>
             <Link href='/landing' className={classes.headerElement}>Show Activities Near Me</Link>
-            <p className={classes.headerElement}>Post an Activity</p>
+            <Link href='/post-event' className={classes.headerElement}>Post an Activity</Link>
             </>
             }
             <button className={classes.iconWrapper}>
