@@ -31,29 +31,41 @@ const LandingPage = ()=> {
         timeout: 500
     }
 
+ 
+
 const handleGPS = useCallback((geoLocation: any ) => {
     setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
-    window.localStorage.setItem('lat', userLocation.lat.toString());
-    window.localStorage.setItem('lon', userLocation.lon.toString());
-    }, [userLocation])    
+    window.localStorage.setItem('lat', geoLocation.coords.latitude.toString());
+    window.localStorage.setItem('lon', geoLocation.coords.longitude.toString());
+    }, [])    
 
 const handleNoGPS= async ()=>{
     console.log('reverting to IP');
     const ipLocation: Location | null = await getByIP();
-    console.log(ipLocation);
 // currently has city-level accuracy. Sometimes thinks I'm in Huddersfield...
 //@ts-expect-error
     setUserLocation(ipLocation);
     }
 
+    if (!window.localStorage.getItem('lat') || !window.localStorage.getItem('lon')){
     if(globalThis.window && userLocation.lat === 0){
     navigator.geolocation.getCurrentPosition(handleGPS, handleNoGPS, options);
     }
     else if (userLocation.lat === 0){handleNoGPS()}
+    }
+    else {
+        console.log('stored data')
+        if (userLocation.lat === 0){
+        setUserLocation({
+            lat: Number(window.localStorage.getItem('lat')),
+            lon: Number(window.localStorage.getItem('lon')),
+        })
+        }
+    }
 
 
 
-const fetchActivities = async()=>{
+const fetchActivities = useCallback(async()=>{
     if(activities.length === 0){
         try{
         const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'activities', userLocation )
@@ -61,10 +73,12 @@ const fetchActivities = async()=>{
         }
         catch{console.log('fetch error')}
     }
-}
+},[activities, userLocation]
+)
 
-
+React.useEffect(()=>{
 fetchActivities();
+},[fetchActivities])
 
 const activityRender = (activities.length !== 0) ? (activities.map((activity)=>{
     return (

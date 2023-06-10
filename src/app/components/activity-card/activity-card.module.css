@@ -21,6 +21,7 @@
     padding: 12px;
     line-height: 20px;
     font-family: 'Arimo';
+    max-width: 100%;
 }
 
 .imageContainer{
@@ -28,6 +29,7 @@
     border-width: 1px;
     border-color:black;
     border-radius: 7px;
+    overflow:hidden;
 }
 
 .descriptionItem{

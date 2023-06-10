@@ -5,7 +5,7 @@ import ProfileSVG from '../../../../assets/profile';
 import ProfileAuthSVG from '../../../../assets/profile-logged-in';
 import { useMediaQuery } from '../../../../utils/use-media-query';
 import { sizes } from '../../../../utils/use-media-query';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '@/app/context/auth-provider';
 import Link from 'next/link';
 
@@ -16,7 +16,9 @@ export interface IHeaderProps {
 
 const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
    const isMobile =  useMediaQuery(sizes.sm);
-   const {authDetails} = useContext(AuthContext);
+   const email = window.localStorage.getItem('user');
+
+   const displayName = email?.split("@")[0];
 
     return(
         <nav className={classes.wrapper}>
@@ -33,8 +35,8 @@ const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
             </>
             }
             <button className={classes.iconWrapper}>
-            <p className={classes.headerElement}>{authDetails.isAuthenticated ? authDetails.userName : 'Profile'}</p>
-            {authDetails.isAuthenticated ? <ProfileAuthSVG/> : <ProfileSVG/>}
+            <p className={classes.headerElement}>{displayName ? displayName : 'Profile'}</p>
+            {email ? <ProfileAuthSVG/> : <ProfileSVG/>}
             </button>
         </nav>
     )

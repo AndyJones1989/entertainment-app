@@ -12,7 +12,6 @@ export default function Login() {
   const {authDetails} = useContext(AuthContext);
   const {setAuthenticated} = authDetails;
   const router = useRouter();
-  console.log(AuthContext);
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -33,6 +32,7 @@ const handleSubmit = async (event:any) => {
 
   try{
   const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'login', { user } );
+  console.log(response.data);
   setAuthenticated({
     isAuthenticated: true,
     userName: emailInput,
@@ -42,9 +42,13 @@ const handleSubmit = async (event:any) => {
 
   if(globalThis.window){
     window.localStorage.setItem('token', response.data);
+    window.localStorage.setItem('user', emailInput);
+    console.log(window.localStorage.getItem('token'));
+    console.log(window.localStorage.getItem('user'))
     }
-  
- router.push('/landing');
+ 
+//Promise.allSettled([response]).then(()=>{ router.push('/landing');})
+
   }
   catch{
     setShowErrorDialogue(true);
