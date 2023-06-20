@@ -124,9 +124,10 @@ const addInvalidPasswordClass = inputIsValid.password ? '' : classes.inputInvali
     );
   }
 
-  interface IInputChangeEvent {
+ export interface IInputChangeEvent {
     target: {
       value: string;
+      id: string;
     }
   }
 

@@ -3,6 +3,7 @@ const express = require ('express');
 const bodyParser = require('body-parser');
 const loginRoute = require('./login/login');
 const activitiesRoute = require('./activities/activities')
+const postEventRoute = require('./post-event/post-event')
 
 const app = express();
 
@@ -22,5 +23,7 @@ app.use(bodyParser.json());
 app.post('/login', loginRoute);
 
 app.post('/activities', activitiesRoute);
+
+app.post('/post-event', postEventRoute)
 
 app.listen(process.env.PORT || 3001, ()=> {console.log("App is available on http://localhost:3001")});

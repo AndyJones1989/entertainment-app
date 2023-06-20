@@ -8,6 +8,7 @@ import { sizes } from '../../../../utils/use-media-query';
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '@/app/context/auth-provider';
 import Link from 'next/link';
+import { HydrationProvider, Client } from 'react-hydration-provider';
 
 export interface IHeaderProps {
     isLoggedIn: boolean
@@ -16,11 +17,16 @@ export interface IHeaderProps {
 
 const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
    const isMobile =  useMediaQuery(sizes.sm);
-   const email = window.localStorage.getItem('user');
+   let email;
+   if(globalThis.window){
+   email = window.localStorage.getItem('user');
+   }
 
    const displayName = email?.split("@")[0];
 
     return(
+        <HydrationProvider>
+            <Client>
         <nav className={classes.wrapper}>
             {isMobile && 
             <button className={classes.iconWrapper} >
@@ -39,6 +45,8 @@ const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
             {email ? <ProfileAuthSVG/> : <ProfileSVG/>}
             </button>
         </nav>
+        </Client>
+        </HydrationProvider>
     )
 }
 
