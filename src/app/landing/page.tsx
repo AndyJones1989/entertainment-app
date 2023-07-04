@@ -30,14 +30,14 @@ const LandingPage = ()=> {
     const options = {
         timeout: 500
     }
-
  
-
 const handleGPS = useCallback((geoLocation: any ) => {
     setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
     //these need linking with an expiry time for refresh
+    if (globalThis.window){
     window.localStorage.setItem('lat', geoLocation.coords.latitude.toString());
     window.localStorage.setItem('lon', geoLocation.coords.longitude.toString());
+    }
     }, [])    
 
 const handleNoGPS= async ()=>{
