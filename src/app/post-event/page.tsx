@@ -10,11 +10,9 @@ import { useRouter } from "next/navigation";
 export default function PostEvent() {
 const router = useRouter();
     //abstract this out.
-    if(globalThis.window){
-const authObject = {
+    const authObject = {
     token: window.localStorage.getItem('token')
 }
-    }
 
 const postAuthData = async () => {
 
@@ -77,23 +75,34 @@ const handleSubmit = async (event: any) => {
         return;
     };
     console.log(eventObject);
-   // const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'postEvent', eventObject );
-   // console.log(response.data);
+   const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'postEvent', eventObject );
+   console.log(response.data);
 
 };
 
 const handleChange = (event: IInputChangeEvent) => {
     dispatch({type: event.target.id, payload: event.target.value});
+    let isValErrors = false;
+    for(const value of Object.values(invalidFields)){
+        if(value){
+            console.log(value, 'error')
+            isValErrors = true;
+            setShowErrorDialogue(true);
+        }
+    }
+    if(!isValErrors){
+        setShowErrorDialogue(false);
+    }
 };
 
 const validate = (event?: IInputChangeEvent, field?: string) => {
 const type = event?.target.id || field;
-console.log(type, eventObject[type]);
 switch(type){
     case 'name':
         if (eventObject[type].length < 3){
             console.log(eventObject[type].length, 'length');
             setInvalidFields(() => {return {...invalidFields, name: true}})
+            setShowErrorDialogue(true);
             return false;
         }
         else setInvalidFields(() => {return {...invalidFields, name: false}})
@@ -101,6 +110,7 @@ switch(type){
     case 'description':
         if (eventObject[type].length < 10){
             setInvalidFields(() => {return {...invalidFields, description: true}})
+            setShowErrorDialogue(true);
             return false;
         }
         else setInvalidFields(() => {return {...invalidFields, description: false}})
@@ -108,6 +118,7 @@ switch(type){
     case 'town':
         if (eventObject[type].length < 3){
             setInvalidFields(() => {return {...invalidFields, town: true}})
+            setShowErrorDialogue(true);
             return false;
         }
         else setInvalidFields(() => {return {...invalidFields, town: false}})
@@ -115,6 +126,7 @@ switch(type){
         case 'contact':
             if (!eventObject[type].includes('@')){
                 setInvalidFields(() => {return {...invalidFields, contact: true}})
+                setShowErrorDialogue(true);
                 return false;
             }
             else setInvalidFields(() => {return {...invalidFields, contact: false}})
@@ -125,11 +137,7 @@ switch(type){
     }  
 
     const handleValidate = (event: IInputChangeEvent) => {
-        console.log(invalidFields, 'invalid fields');
-        if (!validate(event)){
-            setShowErrorDialogue(true);
-        }
-        else { setShowErrorDialogue(false);}
+        validate(event);
     }
 
     return (
