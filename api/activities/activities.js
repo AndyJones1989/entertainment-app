@@ -13,7 +13,7 @@ router.post('/activities', async (req, res, next) => {
         longitude: body.lon
     }
 
-    mongoose.connect(process.env.MONGO_STRING)
+    mongoose.connect(process.env.MONGO_LOCAL_STRING)
     .then(() => {console.log("connection established to MongoDB cluster")})
     .catch((err) => {console.log(err.stack)});
 
@@ -45,7 +45,6 @@ router.post('/activities', async (req, res, next) => {
     })
 
     mappedActivities.sort(sortFunction);
-
     res.status(200).send(mappedActivities);
     
 });
