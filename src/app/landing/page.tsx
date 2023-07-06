@@ -34,7 +34,7 @@ const LandingPage = ()=> {
 const handleGPS = useCallback((geoLocation: any ) => {
     setUserLocation({lat: geoLocation.coords.latitude, lon: geoLocation.coords.longitude})
     //these need linking with an expiry time for refresh
-    if (globalThis.window){
+    if (typeof window !== 'undefined'){
     window.localStorage.setItem('lat', geoLocation.coords.latitude.toString());
     window.localStorage.setItem('lon', geoLocation.coords.longitude.toString());
     }

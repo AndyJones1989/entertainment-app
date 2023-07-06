@@ -6,6 +6,7 @@ import Header from "../components/header/header";
 import TitleBanner from "../components/title-banner/title-banner";
 import { AuthContext } from "../context/auth-provider";
 import { useRouter } from "next/navigation";
+import { type } from "os";
 
 
 export default function Login() {
@@ -40,7 +41,7 @@ const handleSubmit = async (event:any) => {
     setAuthenticated: setAuthenticated
   })
 
-  if(globalThis.window){
+  if(typeof window !== 'undefined'){
     window.localStorage.setItem('token', response.data);
     window.localStorage.setItem('user', emailInput);
     console.log(window.localStorage.getItem('token'));
