@@ -6,13 +6,18 @@ import TitleBanner from "../components/title-banner/title-banner";
 import classes from './post-event.module.css'
 import { IInputChangeEvent } from "../login/page";
 import { useRouter } from "next/navigation";
+import { useIsClient } from "../context/is-client-ctx";
 
 export default function PostEvent() {
-const router = useRouter();
+    const isClient = useIsClient();
+    const router = useRouter();
     //abstract this out.
-    const authObject = {
-    token: window.localStorage.getItem('token')
-}
+
+    const authObject: {token: string | null} = {token:''};
+        if (isClient){
+        authObject.token = window.localStorage.getItem('token')
+        }
+
 
 const postAuthData = async () => {
 
