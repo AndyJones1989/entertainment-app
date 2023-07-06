@@ -18,7 +18,7 @@ export interface IHeaderProps {
 const Header = ({isLoggedIn}: IHeaderProps): JSX.Element => {
    const isMobile =  useMediaQuery(sizes.sm);
    let email;
-   if(globalThis.window){
+   if(typeof window !== 'undefined'){
    email = window.localStorage.getItem('user');
    }
 

@@ -18,7 +18,9 @@ export function useMediaQuery(query: any ) {
     const listener = () => {
       setMatches(media.matches);
     };
+    if(typeof window !== 'undefined'){
     window.addEventListener('resize',listener);
+    }
     return () => window.removeEventListener('resize', listener)
   }, [matches, query]);
 
