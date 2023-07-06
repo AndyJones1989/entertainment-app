@@ -6,13 +6,14 @@ import Header from "../components/header/header";
 import TitleBanner from "../components/title-banner/title-banner";
 import { AuthContext } from "../context/auth-provider";
 import { useRouter } from "next/navigation";
-import { type } from "os";
+import { useIsClient } from "../context/is-client-ctx";
 
 
 export default function Login() {
   const {authDetails} = useContext(AuthContext);
   const {setAuthenticated} = authDetails;
   const router = useRouter();
+  const isClient = useIsClient();
 
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -48,7 +49,7 @@ const handleSubmit = async (event:any) => {
     console.log(window.localStorage.getItem('user'))
     }
  
-Promise.allSettled([response]).then(()=>{ router.back();})
+Promise.allSettled([response]).then(()=>{if(isClient){router.back()};})
 
   }
   catch{

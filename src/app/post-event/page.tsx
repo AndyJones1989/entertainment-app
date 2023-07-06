@@ -25,7 +25,7 @@ const postAuthData = async () => {
     const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + 'checkAuth', authObject );
     }
     catch{
-        router.push('/login');
+        if(isClient){router.push('/login')};
     }
 
 }
