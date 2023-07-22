@@ -25,7 +25,6 @@
     padding: 20px;
     width: 50%;
     text-align: center;
-    
 }
 .headerElement:hover{
     font-weight: bolder;
@@ -34,8 +33,79 @@
     background-color: rgb(26, 116, 206);
     }
 
+.burgerElement {
+    text-decoration: none;
+    margin-top: 10px;
+    padding: 15px;
+    font-family: 'Arimo';
+    font-size: 18px;
+    color: rgb(26, 116, 206); 
+}
+.burgerElement:hover{
+    cursor: pointer;
+    font-size: 20px;
+}
+.burgerClose{
+    all: unset;
+    width: 80%;
+    margin: 10px auto;
+    align-self: flex-start;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: dodgerblue;
+    color: white;
+    font-family: 'Arimo';
+}
+.burgerClose:hover{
+    background-color: rgb(26, 116, 206);
+    color: #ccc;
+}
+
 @media screen and (max-width: 950px) {
   .headerElement {
     font-size: 18px;
   }
+}
+.home {
+    padding: 20px;
+    color: white;
+    width: 10%;
+
+}
+.home:hover{
+    cursor: pointer;
+    color: #ccc;
+}
+
+.hideMenu{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    transition: all 0.5s ease-in-out;
+    top: -100%;
+    left: 0;
+    height: 50vh;
+    z-index: 2;
+    opacity: 0.95;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.showMenu{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    transition: all 0.5s ease-in-out;
+    top: -17px;
+    left: 0;
+    height: 50vh;
+    width: 60vw;
+    z-index: 2;
+    background: white;
+    color: rgb(26, 116, 206);
+    opacity: 0.95;
+    border: 1px solid white;
+    border-radius: 5px;
 }
