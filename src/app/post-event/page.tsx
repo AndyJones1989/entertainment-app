@@ -18,7 +18,7 @@ export default function PostEvent() {
         authObject.token = window.localStorage.getItem('token')
         }
 
-
+// can be accessed via the routes file instead.
 const postAuthData = async () => {
 
     try{

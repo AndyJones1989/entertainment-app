@@ -37,5 +37,17 @@
 @media screen and (max-width: 950px) {
   .headerElement {
     font-size: 18px;
+    color:#ccc;
   }
+}
+.home {
+    padding: 20px;
+    color: white;
+    width: 10%;
+
+}
+.home:hover{
+    cursor: pointer;
+    color: #ccc;
+
 }
