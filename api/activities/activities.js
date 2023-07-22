@@ -32,7 +32,6 @@ router.post('/activities', async (req, res, next) => {
 
     const activities = await Activity.find()
     const mappedActivities = activities.map((activity)=>{
-        //scott - why TF did the spread operator cause me issues here?
         return {
             _id: activity.id,
             name: activity.name,

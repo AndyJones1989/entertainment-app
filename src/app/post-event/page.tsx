@@ -148,7 +148,7 @@ switch(type){
     return (
 
           <>
-      <Header isLoggedIn={false}/>
+      <Header/>
       <TitleBanner text='Create an Event'/>
     <form onSubmit={handleSubmit} className={classes.formWrapper}>
     {showErrorDialogue &&
