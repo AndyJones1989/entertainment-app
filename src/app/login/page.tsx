@@ -110,7 +110,7 @@ const addInvalidPasswordClass = inputIsValid.password ? '' : classes.inputInvali
 
     return (
       <>
-      <Header isLoggedIn={false}/>
+      <Header/>
       <TitleBanner text='Log-In or Sign Up'/>
     <form onSubmit={handleSubmit} className={classes.formWrapper}>
     {showErrorDialogue &&
