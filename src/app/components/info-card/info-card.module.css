@@ -78,7 +78,10 @@ flex-direction: column;
     font-weight: bold;
     text-align: center;
     font-family: 'Arimo';
+}
 
+.link:hover{
+    font-size: 26px;;
 }
 
 .reversedTextColor{

@@ -1,5 +1,4 @@
 'use client'
-import { AuthContext } from "@/app/context/auth-provider";
 import ActivityCard from "../components/activity-card/activity-card";
 import tempImage from '../../../assets/welcome-image.webp'
 import { useCallback, useContext, useState } from "react";
@@ -26,7 +25,6 @@ type Activity = {
 
 const LandingPage = ()=> {
     const isClient = useIsClient();
-    const authStatus = useContext(AuthContext);
     const [userLocation, setUserLocation] = useState<Location>({lat: 0, lon: 0});
     const [activities, setActivities] = useState<Activity[]>([]);
     const options = {
@@ -58,7 +56,6 @@ const handleNoGPS= async ()=>{
     else if (userLocation.lat === 0){handleNoGPS()}
     }
     else {
-        console.log('stored data')
         if (userLocation.lat === 0 && isClient){
         setUserLocation({
             lat: Number(window.localStorage.getItem('lat')),
@@ -100,7 +97,7 @@ const activityRender = (activities.length !== 0) ? (activities.map((activity)=>{
 
   return(
     <>
-    <Header isLoggedIn={authStatus.authDetails.isAuthenticated}/>
+    <Header/>
     <div style={{display: 'flex', width: '80%', margin: ' 0 auto', gap: '24px', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
     {activityRender}
     </div>
