@@ -1,40 +1,40 @@
-.container{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    max-width: 30%;
-    height: auto;
-    border-radius: 10px;
-    border-color: whitesmoke;
-    border-style: solid;
-    border-width: 2px;
-    box-shadow: 10px 10px 4px gray;
-    margin-top: 50px;
-    padding: 8px;
-    text-align: center;
-    min-width: 200px;
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+  height: auto;
+  border-radius: 10px;
+  border-color: whitesmoke;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: 10px 10px 4px gray;
+  margin-top: 50px;
+  padding: 8px;
+  text-align: center;
+  min-width: 200px;
 }
 
-.title{
-    color: rgb(0, 0, 124);
-    font-size: 28px;
-    font-weight: bolder;
-    padding: 12px;
-    line-height: 20px;
-    font-family: 'Arimo';
-    max-width: 100%;
+.title {
+  color: rgb(0, 0, 124);
+  font-size: 28px;
+  font-weight: bolder;
+  padding: 12px;
+  line-height: 20px;
+  font-family: "Arimo";
+  max-width: 100%;
 }
 
-.imageContainer{
-    border-style: solid;
-    border-width: 1px;
-    border-color:black;
-    border-radius: 7px;
-    overflow:hidden;
+.imageContainer {
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+  border-radius: 7px;
+  overflow: hidden;
 }
 
-.descriptionItem{
-    color: rgb(0, 0, 124);
-    font-size: 18px;
-    font-family: 'Arimo';
+.descriptionItem {
+  color: rgb(0, 0, 124);
+  font-size: 18px;
+  font-family: "Arimo";
 }

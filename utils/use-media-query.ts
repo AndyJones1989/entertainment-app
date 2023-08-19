@@ -1,13 +1,13 @@
-'use client'
-import { useState, useEffect } from 'react';
+"use client";
+import { useState, useEffect } from "react";
 
 export const sizes = {
-    sm: '(max-width: 500px)',
-    md: '(max-width: 950px)',
-    lg: '(min-width: 951px)',
-}
+  sm: "(max-width: 500px)",
+  md: "(max-width: 950px)",
+  lg: "(min-width: 951px)",
+};
 
-export function useMediaQuery(query: any ) {
+export function useMediaQuery(query: any) {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
@@ -18,13 +18,11 @@ export function useMediaQuery(query: any ) {
     const listener = () => {
       setMatches(media.matches);
     };
-    if(typeof window !== 'undefined'){
-    window.addEventListener('resize',listener);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", listener);
     }
-    return () => window.removeEventListener('resize', listener)
+    return () => window.removeEventListener("resize", listener);
   }, [matches, query]);
 
   return matches;
 }
-
-    
