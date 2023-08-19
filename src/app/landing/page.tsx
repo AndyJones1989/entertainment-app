@@ -1,12 +1,15 @@
 "use client";
 import ActivityCard from "../components/activity-card/activity-card";
 import tempImage from "../../../assets/welcome-image.webp";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useState } from "react";
 import { getByIP } from "./location-getters";
 import Header from "../components/header/header";
 import React from "react";
 import axios from "axios";
 import { useIsClient } from "../context/is-client-ctx";
+import InfoCard from "../components/info-card/info-card";
+import nursery from "../../../assets/nurseryTeacher.webp";
+import CustomMap from "../components/map/map";
 
 type Location = {
   lat: number;
@@ -86,6 +89,7 @@ const LandingPage = () => {
           process.env.NEXT_PUBLIC_API_URL + "activities",
           userLocation
         );
+        console.log(response.data);
         setActivities(response.data);
       } catch {
         console.log("fetch error");
@@ -119,6 +123,16 @@ const LandingPage = () => {
   return (
     <>
       <Header />
+      <InfoCard
+        title="Welcome to the Activity Finder"
+        body="This page shows the nearest 10 activities to your location. If for some reason you can't provide your location then it will be estimated from your IP address, but it might not be quite so accurate!"
+        image={nursery}
+        imagePosition={2}
+        linkText="Got your own idea for an activity?"
+        linkUrl="/post-event"
+        altText="Welcome Image"
+        colorReversed={true}
+      />
       <div
         style={{
           display: "flex",
@@ -130,6 +144,9 @@ const LandingPage = () => {
         }}
       >
         {activityRender}
+      </div>
+      <div style={{ width: "70%", height: "200px", margin: "30px auto" }}>
+        <CustomMap />
       </div>
     </>
   );

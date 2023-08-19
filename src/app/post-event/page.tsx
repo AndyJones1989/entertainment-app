@@ -72,7 +72,6 @@ export default function PostEvent() {
     let isValErrors = false;
     for (const value of Object.values(invalidFields)) {
       if (value) {
-        console.log(value, "error");
         isValErrors = true;
         setShowErrorDialogue(true);
       }
@@ -80,12 +79,14 @@ export default function PostEvent() {
     if (isValErrors) {
       return;
     }
-    console.log(eventObject);
     const response = await axios.post(
       process.env.NEXT_PUBLIC_API_URL + "postEvent",
       eventObject
     );
-    console.log(response.data);
+    if (response.data) {
+      // this just routes back to landing for now, but in future it will route to the user's events page.
+      router.push("/landing");
+    }
   };
 
   const handleChange = (event: IInputChangeEvent) => {

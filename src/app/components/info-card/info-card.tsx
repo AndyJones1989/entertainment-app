@@ -12,7 +12,7 @@ export interface ICardProps {
   image: string | StaticImageData;
   imagePosition: orientations;
   altText: string;
-  colorReversed: boolean;
+  colorReversed?: boolean;
 }
 
 export enum orientations {
